@@ -1,14 +1,14 @@
-package org.axonframework.extensions.cdi.util;
+package org.axonframework.cdi;
 
 import java.util.Optional;
 
-public class StringUtilities {
+class StringUtilities {
 
-    public static String lowerCaseFirstLetter(String string) {
+    static String lowerCaseFirstLetter(String string) {
         return string.substring(0, 1).toLowerCase() + string.substring(1);
     }
 
-    public static Optional<String> createOptional(String value) {
+    static Optional<String> createOptional(String value) {
         if ("".equals(value)) {
             return Optional.empty();
         }

@@ -1,4 +1,4 @@
-package org.axonframework.extensions.cdi.stereotype;
+package org.axonframework.cdi.stereotype;
 
 import org.axonframework.modelling.command.AggregateRoot;
 

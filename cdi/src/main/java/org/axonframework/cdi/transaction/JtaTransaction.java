@@ -1,13 +1,19 @@
-package org.axonframework.extensions.cdi.transaction;
+package org.axonframework.cdi.transaction;
 
+import java.lang.invoke.MethodHandles;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
+import javax.transaction.HeuristicMixedException;
+import javax.transaction.HeuristicRollbackException;
+import javax.transaction.NotSupportedException;
+import javax.transaction.RollbackException;
+import javax.transaction.Status;
+import javax.transaction.SystemException;
+import javax.transaction.TransactionSynchronizationRegistry;
+import javax.transaction.UserTransaction;
 import org.axonframework.common.transaction.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.transaction.*;
-import java.lang.invoke.MethodHandles;
 
 public class JtaTransaction implements Transaction {
 
@@ -50,7 +56,7 @@ public class JtaTransaction implements Transaction {
                 // and still be associated with current thread.
                 // See WFLY-4327
                 int status = userTransaction.getStatus();
-                if(status== Status.STATUS_ROLLEDBACK || status== Status.STATUS_MARKED_ROLLBACK)
+                if(status==Status.STATUS_ROLLEDBACK || status==Status.STATUS_MARKED_ROLLBACK)
                 {
                     logger.error("Cleanup of transaction that has been rolled back previously.");
                     userTransaction.rollback();

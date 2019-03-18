@@ -1,10 +1,10 @@
-package org.axonframework.extensions.cdi.stereotype;
+package org.axonframework.cdi.stereotype;
 
-import javax.enterprise.inject.Stereotype;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import javax.enterprise.inject.Stereotype;
 
 /**
  * @author Milan Savic

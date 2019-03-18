@@ -1,7 +1,6 @@
-package org.axonframework.extensions.cdi;
+package org.axonframework.cdi;
 
-import org.axonframework.extensions.cdi.stereotype.Aggregate;
-import org.axonframework.extensions.cdi.util.StringUtilities;
+import org.axonframework.cdi.stereotype.Aggregate;
 
 import java.lang.annotation.Annotation;
 import java.util.Arrays;

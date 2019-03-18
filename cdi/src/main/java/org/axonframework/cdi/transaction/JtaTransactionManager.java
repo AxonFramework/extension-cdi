@@ -1,4 +1,4 @@
-package org.axonframework.extensions.cdi.transaction;
+package org.axonframework.cdi.transaction;
 
 import org.axonframework.common.transaction.Transaction;
 import org.axonframework.common.transaction.TransactionManager;
