@@ -2,7 +2,7 @@ package org.axonframework.cdi;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
-//import javax.annotation.Priority;
+import javax.annotation.Priority;
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Alternative;
 import javax.enterprise.inject.Produces;
@@ -20,7 +20,7 @@ import org.slf4j.LoggerFactory;
 // approach to work but I don't think it will unless you can see a way.
 @ApplicationScoped
 @Alternative
-//@Priority(javax.interceptor.Interceptor.Priority.LIBRARY_BEFORE)
+@Priority(javax.interceptor.Interceptor.Priority.LIBRARY_BEFORE)
 public class AxonDefaultConfiguration implements Serializable {
 
     private static final Logger logger = LoggerFactory.getLogger(
