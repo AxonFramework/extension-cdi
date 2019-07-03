@@ -22,7 +22,7 @@
     <parent>
         <artifactId>axon-cdi-parent</artifactId>
         <groupId>org.axonframework.extensions.cdi</groupId>
-        <version>4.0-SNAPSHOT</version>
+        <version>4.1.1-SNAPSHOT</version>
     </parent>
 
     <artifactId>axon-cdi</artifactId>
