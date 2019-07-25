@@ -19,6 +19,7 @@ import org.axonframework.messaging.correlation.CorrelationDataProvider;
 import org.axonframework.modelling.command.CommandTargetResolver;
 import org.axonframework.modelling.command.GenericJpaRepository;
 import org.axonframework.modelling.command.Repository;
+import org.axonframework.modelling.saga.ResourceInjector;
 import org.axonframework.modelling.saga.repository.SagaStore;
 import org.axonframework.queryhandling.QueryBus;
 import org.axonframework.queryhandling.QueryGateway;
@@ -85,6 +86,7 @@ public class AxonCdiExtension implements Extension {
     private Producer<DeadlineManager> deadlineManagerProducer;
     private Producer<EventProcessingModule> eventProcessingModuleProducer;
     private Producer<EventProcessingConfiguration> eventProcessingConfigurationProducer;
+    private Producer<ResourceInjector> resourceInjectorProducer;
 
     // Mark: Many of the beans and producers I am processing may use
     // container resources such as entity managers, etc. I believe this means
@@ -448,6 +450,14 @@ public class AxonCdiExtension implements Extension {
         this.eventUpcasterProducers.add(processProducer.getProducer());
     }
 
+    <T> void resourceInjectorProducer(
+            @Observes final ProcessProducer<T, ResourceInjector> processProducer) {
+
+        logger.debug("Producer for resource injector found: {}.", processProducer.getProducer());
+
+        this.resourceInjectorProducer = processProducer.getProducer();
+    }
+
     /**
      * Scans all beans and collects beans with message handlers.
      *
@@ -699,6 +709,14 @@ public class AxonCdiExtension implements Extension {
             logger.info("Registering event storage: {}.", eventStorageEngine.getClass().getSimpleName());
 
             configurer.configureEmbeddedEventStore(c -> eventStorageEngine);
+        }
+
+        if (this.resourceInjectorProducer != null) {
+            ResourceInjector resourceInjector = produce(beanManager, resourceInjectorProducer);
+
+            logger.info("Registering resource injector: {}.", resourceInjector.getClass().getSimpleName());
+
+            configurer.registerComponent(ResourceInjector.class, c -> resourceInjector);
         }
 
         // Now need to begin registering application components rather than
