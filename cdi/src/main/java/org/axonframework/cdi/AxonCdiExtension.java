@@ -26,6 +26,7 @@ import org.axonframework.queryhandling.QueryGateway;
 import org.axonframework.queryhandling.QueryUpdateEmitter;
 import org.axonframework.serialization.Serializer;
 import org.axonframework.serialization.upcasting.event.EventUpcaster;
+import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -69,7 +70,7 @@ public class AxonCdiExtension implements Extension {
     private Producer<Serializer> messageSerializerProducer;
     private Producer<EventBus> eventBusProducer;
     private Producer<CommandBus> commandBusProducer;
-//     private Producer<CommandGateway> commandGatewayProducer;
+    private Producer<CommandGateway> commandGatewayProducer;
     private Producer<Configurer> configurerProducer;
     private Producer<TransactionManager> transactionManagerProducer;
     private Producer<EntityManagerProvider> entityManagerProviderProducer;
@@ -293,15 +294,15 @@ public class AxonCdiExtension implements Extension {
         this.commandBusProducer = processProducer.getProducer();
     }
 
-//    <T> void processCommandGatewayProducer(
-//            @Observes final ProcessProducer<T, CommandGateway> processProducer) {
-//        // TODO Handle multiple producer definitions.
-//
-//        logger.debug("Producer for command gateway found: {}.",
-//                processProducer.getProducer());
-//
-//        this.commandGatewayProducer = processProducer.getProducer();
-//    }
+    <T> void processCommandGatewayProducer(
+            @Observes final ProcessProducer<T, CommandGateway> processProducer) {
+        // TODO Handle multiple producer definitions.
+
+        logger.debug("Producer for command gateway found: {}.",
+                processProducer.getProducer());
+
+        this.commandGatewayProducer = processProducer.getProducer();
+    }
 
     /**
      * Scans for an entity manager provider producer.
@@ -565,6 +566,14 @@ public class AxonCdiExtension implements Extension {
             logger.info("Registering command bus: {}.", commandBus.getClass().getSimpleName());
 
             configurer.configureCommandBus(c -> commandBus);
+        }
+
+        if (this.commandGatewayProducer != null) {
+            CommandGateway commandGateway = produce(beanManager, commandGatewayProducer);
+
+            logger.info("Registering commandGateway: {}.", commandGateway.getClass().getSimpleName());
+
+            configurer.registerComponent(CommandGateway.class, c -> commandGateway);
         }
 
         // Module configurations registration.
