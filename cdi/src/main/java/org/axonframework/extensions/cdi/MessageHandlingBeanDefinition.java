@@ -1,4 +1,4 @@
-package org.axonframework.cdi;
+package org.axonframework.extensions.cdi;
 
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventhandling.EventHandler;

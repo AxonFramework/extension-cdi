@@ -2,7 +2,7 @@ package org.axonframework.extension.example.swarm.aggregate;
 
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-import org.axonframework.cdi.stereotype.Aggregate;
+import org.axonframework.extensions.cdi.stereotype.Aggregate;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import org.axonframework.eventsourcing.EventSourcingHandler;

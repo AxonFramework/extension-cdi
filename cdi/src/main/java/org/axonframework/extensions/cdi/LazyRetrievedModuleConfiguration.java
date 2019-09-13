@@ -1,4 +1,4 @@
-package org.axonframework.cdi;
+package org.axonframework.extensions.cdi;
 
 import org.axonframework.config.Configuration;
 import org.axonframework.config.ModuleConfiguration;

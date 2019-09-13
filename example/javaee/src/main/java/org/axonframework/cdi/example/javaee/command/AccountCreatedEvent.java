@@ -1,4 +1,4 @@
-package org.axonframework.cdi.example.javaee.command;
+package org.axonframework.extensions.cdi.example.javaee.command;
 
 public class AccountCreatedEvent {
 

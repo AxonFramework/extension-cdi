@@ -1,4 +1,4 @@
-package org.axonframework.cdi;
+package org.axonframework.extensions.cdi;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;

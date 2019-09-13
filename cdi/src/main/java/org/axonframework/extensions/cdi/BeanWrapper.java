@@ -1,4 +1,4 @@
-package org.axonframework.cdi;
+package org.axonframework.extensions.cdi;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.context.spi.CreationalContext;

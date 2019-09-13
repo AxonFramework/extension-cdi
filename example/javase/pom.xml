@@ -86,7 +86,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>libs/</classpathPrefix>
-                            <mainClass>org.axonframework.cdi.example.javase.AccountApplication</mainClass>
+                            <mainClass>org.axonframework.extensions.cdi.example.javase.AccountApplication</mainClass>
                         </manifest>
                     </archive>
                 </configuration>
@@ -96,7 +96,7 @@
                 <artifactId>exec-maven-plugin</artifactId>
                 <version>1.6.0</version>
                 <configuration>
-                    <mainClass>org.axonframework.cdi.example.javase.AccountApplication</mainClass>
+                    <mainClass>org.axonframework.extensions.cdi.example.javase.AccountApplication</mainClass>
                 </configuration>
             </plugin>
         </plugins>

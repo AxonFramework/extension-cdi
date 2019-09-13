@@ -1,4 +1,4 @@
-package org.axonframework.cdi.stereotype;
+package org.axonframework.extensions.cdi.stereotype;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

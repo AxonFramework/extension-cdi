@@ -93,7 +93,7 @@ You can provide configuration overrides for the following Axon artifacts by crea
 For more details on these objects and the Axon Framework, please consult the [Axon Framework Reference Guide](https://docs.axonframework.org).
   
 ### Aggregates
-You can define aggregate roots by placing a simple annotation `org.axonframework.cdi.stereotype.Aggregate` on your class. It will be automatically collected by the CDI container and registered.
+You can define aggregate roots by placing a simple annotation `org.axonframework.extensions.cdi.stereotype.Aggregate` on your class. It will be automatically collected by the CDI container and registered.
 
 ### Event Handlers and Query Handlers
 Event handlers and query handlers must be CDI beans. They will be automatically registered with Axon for you.

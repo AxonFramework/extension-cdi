@@ -1,6 +1,6 @@
-package org.axonframework.cdi.messaging.annotation;
+package org.axonframework.extensions.cdi.messaging.annotation;
 
-import org.axonframework.cdi.CdiUtilities;
+import org.axonframework.extensions.cdi.CdiUtilities;
 import org.axonframework.messaging.annotation.ParameterResolver;
 
 import javax.enterprise.inject.spi.Bean;

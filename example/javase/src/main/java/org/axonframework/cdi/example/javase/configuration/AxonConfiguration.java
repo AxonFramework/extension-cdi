@@ -1,4 +1,4 @@
-package org.axonframework.cdi.example.javase.configuration;
+package org.axonframework.extensions.cdi.example.javase.configuration;
 
 import java.io.Serializable;
 import javax.enterprise.context.ApplicationScoped;

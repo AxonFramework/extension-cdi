@@ -1,4 +1,4 @@
-package org.axonframework.cdi.example.javase.query;
+package org.axonframework.extensions.cdi.example.javase.query;
 
 import java.lang.invoke.MethodHandles;
 import java.util.logging.Level;

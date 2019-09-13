@@ -1,4 +1,4 @@
-package org.axonframework.cdi.example.javase.command;
+package org.axonframework.extensions.cdi.example.javase.command;
 
 import org.axonframework.commandhandling.TargetAggregateIdentifier;
 

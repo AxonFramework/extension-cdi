@@ -1,4 +1,4 @@
-package org.axonframework.cdi.example.javaee;
+package org.axonframework.extensions.cdi.example.javaee;
 
 import java.lang.invoke.MethodHandles;
 import java.util.UUID;
@@ -7,7 +7,7 @@ import javax.annotation.PostConstruct;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import org.axonframework.cdi.example.javaee.command.CreateAccountCommand;
+import org.axonframework.extensions.cdi.example.javaee.command.CreateAccountCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventhandling.interceptors.EventLoggingInterceptor;

@@ -1,7 +1,7 @@
-package org.axonframework.cdi;
+package org.axonframework.extensions.cdi;
 
-import org.axonframework.cdi.stereotype.Aggregate;
-import org.axonframework.cdi.stereotype.Saga;
+import org.axonframework.extensions.cdi.stereotype.Aggregate;
+import org.axonframework.extensions.cdi.stereotype.Saga;
 import org.axonframework.commandhandling.CommandBus;
 import org.axonframework.common.jpa.EntityManagerProvider;
 import org.axonframework.common.lock.LockFactory;
@@ -938,6 +938,7 @@ public class AxonCdiExtension implements Extension {
     private <T> void addIfNotConfigured(Class<T> componentType, Producer<T> componentProducer,
             Supplier<T> componentSupplier, AfterBeanDiscovery afterBeanDiscovery) {
         if (componentProducer == null) {
+            logger.info("Adding Bean for {}.", componentType.getName());
             afterBeanDiscovery.addBean(new BeanWrapper<>(componentType, componentSupplier));
         }
     }

@@ -1,4 +1,4 @@
-package org.axonframework.cdi.example.javase.query;
+package org.axonframework.extensions.cdi.example.javase.query;
 
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
-import org.axonframework.cdi.example.javase.command.AccountCreatedEvent;
+import org.axonframework.extensions.cdi.example.javase.command.AccountCreatedEvent;
 import org.axonframework.eventhandling.EventHandler;
 import org.axonframework.queryhandling.QueryHandler;
 

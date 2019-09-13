@@ -1,4 +1,4 @@
-package org.axonframework.cdi.example.javaee.command;
+package org.axonframework.extensions.cdi.example.javaee.command;
 
 import org.axonframework.test.aggregate.AggregateTestFixture;
 import org.junit.Test;

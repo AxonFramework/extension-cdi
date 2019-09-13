@@ -1,4 +1,4 @@
-package org.axonframework.cdi.example.javaee.configuration;
+package org.axonframework.extensions.cdi.example.javaee.configuration;
 
 import java.io.Serializable;
 import java.lang.invoke.MethodHandles;
@@ -9,7 +9,7 @@ import javax.enterprise.inject.Produces;
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.persistence.EntityManager;
-import org.axonframework.cdi.transaction.JtaTransactionManager;
+import org.axonframework.extensions.cdi.transaction.JtaTransactionManager;
 import org.axonframework.common.jpa.EntityManagerProvider;
 import org.axonframework.common.jpa.SimpleEntityManagerProvider;
 import org.axonframework.common.transaction.TransactionManager;

@@ -1,4 +1,4 @@
-package org.axonframework.cdi;
+package org.axonframework.extensions.cdi;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;

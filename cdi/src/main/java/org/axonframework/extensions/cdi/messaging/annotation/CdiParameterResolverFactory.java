@@ -1,7 +1,7 @@
-package org.axonframework.cdi.messaging.annotation;
+package org.axonframework.extensions.cdi.messaging.annotation;
 
 import java.lang.invoke.MethodHandles;
-import org.axonframework.cdi.CdiUtilities;
+import org.axonframework.extensions.cdi.CdiUtilities;
 import org.axonframework.common.Priority;
 import org.axonframework.messaging.annotation.ParameterResolver;
 import org.axonframework.messaging.annotation.ParameterResolverFactory;

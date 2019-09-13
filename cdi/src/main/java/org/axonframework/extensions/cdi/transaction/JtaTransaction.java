@@ -1,4 +1,4 @@
-package org.axonframework.cdi.transaction;
+package org.axonframework.extensions.cdi.transaction;
 
 import java.lang.invoke.MethodHandles;
 import javax.naming.InitialContext;

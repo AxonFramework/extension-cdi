@@ -1,9 +1,9 @@
-package org.axonframework.cdi.example.javaee.command;
+package org.axonframework.extensions.cdi.example.javaee.command;
 
 import java.lang.invoke.MethodHandles;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.axonframework.cdi.stereotype.Aggregate;
+import org.axonframework.extensions.cdi.stereotype.Aggregate;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.commandhandling.model.AggregateIdentifier;
 import static org.axonframework.commandhandling.model.AggregateLifecycle.apply;

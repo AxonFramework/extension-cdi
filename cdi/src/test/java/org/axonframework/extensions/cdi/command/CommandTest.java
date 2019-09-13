@@ -1,6 +1,6 @@
-package org.axonframework.cdi.command;
+package org.axonframework.extensions.cdi.command;
 
-import org.axonframework.cdi.stereotype.Aggregate;
+import org.axonframework.extensions.cdi.stereotype.Aggregate;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.modelling.command.AggregateIdentifier;

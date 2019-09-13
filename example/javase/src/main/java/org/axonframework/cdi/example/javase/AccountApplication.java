@@ -1,10 +1,10 @@
-package org.axonframework.cdi.example.javase;
+package org.axonframework.extensions.cdi.example.javase;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.se.SeContainer;
 import javax.enterprise.inject.se.SeContainerInitializer;
 import javax.inject.Inject;
-import org.axonframework.cdi.example.javase.command.CreateAccountCommand;
+import org.axonframework.extensions.cdi.example.javase.command.CreateAccountCommand;
 import org.axonframework.commandhandling.gateway.CommandGateway;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventhandling.interceptors.EventLoggingInterceptor;

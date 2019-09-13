@@ -1,6 +1,6 @@
-package org.axonframework.cdi;
+package org.axonframework.extensions.cdi;
 
-import org.axonframework.cdi.stereotype.Saga;
+import org.axonframework.extensions.cdi.stereotype.Saga;
 
 import java.util.Optional;
 
