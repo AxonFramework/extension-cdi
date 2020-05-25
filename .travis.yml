@@ -1,0 +1,36 @@
+# We want to run this on Ubuntu 18.04 LTS
+dist: bionic
+
+language: java
+
+sudo: required
+
+services:
+  - docker
+
+# We want OpenJDK 8 to be the default, but OpenJDK 10 and 11 are also available.
+# See https://docs.travis-ci.com/user/reference/bionic/#jvm-clojure-groovy-java-scala-support
+jdk:
+  - openjdk8
+
+install: true
+
+cache:
+  directories:
+  - $HOME/.m2
+
+script:
+  - mvn -version
+  - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent verify sonar:sonar -B -Dsonar.projectKey=AxonFramework_extension-cdi
+  - JAVA_HOME=$(dirname ${JAVA_HOME})/openjdk11 mvn -version
+  - JAVA_HOME=$(dirname ${JAVA_HOME})/openjdk11 mvn clean verify -B
+
+notifications:
+  slack:
+    secure: d1HN9GBeH0e6EsHjNkPVXgBaFCYqbvjkZv9GUkpWnyjNYP5V1snSk6sO4X6ONttydgzfbElZTOfrgDzRTgWJ76iDMxAPccFPY7dmGcpw8/2TOjwP6H6yEitiiZcWR9fssTM2Li2WQtuGkwaVBhw15JNABzEsexxqXC+Cu48yUfA=
+
+addons:
+  sonarcloud:
+    organization: "axonframework"
+    token:
+      secure: "IQz08nxVVQTJDSYnE0p96hR3ZgeOlStkbLQuB4PqEZQOp3gW+h29p3ySyw1qkzKeRbZSpEjmLiIh+iI643AxhoLq3mcxIWQuITvaUj6GInDXrNaUQTx1PlhiNSWzcesr9I82GjSEZMl0Jzed5civwvf5Y5nGyKUG+4ZOHqQ9dWVDuiKrNNlo6SpzUenCH8fVlKuyxh1+iku5lAeCOVvZJpc+J12a1N3OgiigMhr5tXjdcJNMbuwWhtB+i1hiqwc6cqigdzbKSp+US5WAc9bAsmcUN2vRP5S3xVf0ITo6dkvI8D6u839OPiI5DKPIAuDSvPp5yoy+YXFDSnZUYe/ZTNqWetXqfMworLUP+s+YrVbPVYQWVZURJDDYq92LCXeiR014ZAPY1EPZt/x65swejnwMGnvS+LOq53ElG/sX1MDgRB3pc+90tqPG/z0uSKbKHNIOMlBh/XTxwrCw0qo3nYoD0tH1jSmRjpkvIFNjDiHKxlousCm5Aau5Dm0VtDKTXV5GsEVqNFujfK61ZVljhpGTwl6RkGNsuRRLL8RjKQFadLAj/DVDAOrByM7VvniI74IieO44WwNYVHHGKhEtMSg1mujA89mLj9L7ODbWAdVgjEp9ZedW3AvBh2a7zkqxB1vXF8Hzy1SUqxTGfTKTrNJ6bjFS0lkgqOoPQr1cfIo="
