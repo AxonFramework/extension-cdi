@@ -22,7 +22,7 @@
     <parent>
         <artifactId>axon-cdi-parent</artifactId>
         <groupId>org.axonframework.extensions.cdi</groupId>
-        <version>4.2-SNAPSHOT</version>
+        <version>4.5-SNAPSHOT</version>
     </parent>
 
     <artifactId>axon-cdi</artifactId>
@@ -36,7 +36,7 @@
 
     <properties>
         <logback.version>1.1.11</logback.version>
-        <deltaspike.version>1.8.2</deltaspike.version>
+        <deltaspike.version>1.9.4</deltaspike.version>
     </properties>
 
     <dependencies>
