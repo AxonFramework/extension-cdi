@@ -1,4 +1,7 @@
 # Axon Framework CDI Support (updated 18-3-2019)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.axonframework.extensions.cdi/axon-cdi/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.axonframework.extensions.cdi/axon-cdi/)
+![Build Status](https://github.com/AxonFramework/extension-cdi/workflows/CDI%20Extension/badge.svg?branch=master)
+[![SonarCloud Status](https://sonarcloud.io/api/project_badges/measure?project=AxonFramework_extension-cdi&metric=alert_status)](https://sonarcloud.io/dashboard?id=AxonFramework_extension-cdi)
 
 This [Axon Framework](https://axoniq.io) module provides support for the [CDI](http://cdi-spec.org) programming model. It is a CDI portable extension integrating the Axon Framework and providing some intelligent defaults while still allowing for configuring overrides.
 
