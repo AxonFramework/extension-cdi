@@ -3,6 +3,7 @@ package org.axonframework.cdi.example.javase.query;
 import java.lang.invoke.MethodHandles;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.enterprise.context.ApplicationScoped;
@@ -28,5 +29,11 @@ public class AccountProjection {
     public Double query(String accountId) {
         logger.log(Level.INFO, "AXON: Querying: {0}.", accountId);
         return accounts.get(accountId);
+    }
+
+    @QueryHandler
+    public Set<String> query(GetAllAccountsQuery query) {
+        logger.log(Level.INFO, "AXON: Querying: {0}.", GetAllAccountsQuery.class);
+        return accounts.keySet();
     }
 }

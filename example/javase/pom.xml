@@ -53,9 +53,27 @@
             <artifactId>cdi</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>jaxrs</artifactId>
         </dependency>
 
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>swagger</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>io.thorntail</groupId>
+            <artifactId>swagger-webapp</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.microprofile.openapi</groupId>
+            <artifactId>microprofile-openapi-api</artifactId>
+            <version>1.0</version>
+        </dependency>
+
 
         <!-- Testing -->
         <dependency>
