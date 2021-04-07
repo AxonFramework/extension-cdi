@@ -20,13 +20,13 @@ public class AccountProjection {
 
     @EventHandler
     public void on(AccountCreatedEvent event) {
-        logger.log(Level.INFO, "Projecting: {0}.", event);
+        logger.log(Level.INFO, "AXON: Projecting: {0}.", event);
         accounts.put(event.getAccountId(), event.getOverdraftLimit());
     }
 
     @QueryHandler
     public Double query(String accountId) {
-        logger.log(Level.INFO, "Querying: {0}.", accountId);
+        logger.log(Level.INFO, "AXON: Querying: {0}.", accountId);
         return accounts.get(accountId);
     }
 }

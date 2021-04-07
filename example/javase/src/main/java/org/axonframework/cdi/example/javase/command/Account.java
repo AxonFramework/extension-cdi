@@ -25,11 +25,12 @@ public class Account {
 
     public Account() {
         // Empty constructor needed for CDI proxying.
+        logger.info("AXON: Created empty Account instance!");
     }
 
     @CommandHandler
     public Account(final CreateAccountCommand command) {
-        logger.log(Level.INFO, "Handling: {0}.", command);
+        logger.log(Level.INFO, "AXON: Handling command: {0}.", command);
 
         apply(new AccountCreatedEvent(command.getAccountId(),
                 command.getOverdraftLimit()));
@@ -37,7 +38,7 @@ public class Account {
 
     @EventSourcingHandler
     public void on(AccountCreatedEvent event) {
-        logger.log(Level.INFO, "Applying: {0}.", event);
+        logger.log(Level.INFO, "AXON: Applying event: {0}.", event);
 
         this.accountId = event.getAccountId();
         this.overdraftLimit = event.getOverdraftLimit();
