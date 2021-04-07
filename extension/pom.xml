@@ -6,7 +6,7 @@
     <description>Provides official Axon support for the CDI programming model.</description>
     <groupId>org.axonframework</groupId>
     <artifactId>axon-cdi</artifactId>
-    <version>4.0-alpha1</version>
+    <version>4.5.alpha1</version>
     <inceptionYear>2018</inceptionYear>
     <url>https://github.com/AxonFramework/cdi</url>
 
