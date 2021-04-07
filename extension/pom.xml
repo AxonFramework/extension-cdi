@@ -26,7 +26,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>1.8</java.version>
 
-        <axon.version>4.0.3</axon.version>
+        <axon.version>4.5</axon.version>
 
         <javaee-api.version>7.0</javaee-api.version>
 

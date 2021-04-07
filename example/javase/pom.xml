@@ -42,11 +42,6 @@
             <artifactId>axon-cdi</artifactId>
             <version>${axon-cdi.version}</version>
         </dependency>
-        <dependency>
-            <groupId>org.axonframework</groupId>
-            <artifactId>axon-configuration</artifactId>
-            <version>${axon.version}</version>
-        </dependency>
 
         <dependency>
             <groupId>io.thorntail</groupId>
