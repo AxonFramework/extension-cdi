@@ -14,7 +14,7 @@ import org.junit.Test;
 
 public class BeanWrapperTest {
 
-    private final Supplier<Foo> supplier = () -> new Foo();
+    private final Supplier<Foo> supplier = Foo::new;
     private final BeanWrapper<Foo> testee = new BeanWrapper<>(Foo.class, supplier);
 
     @Test
@@ -81,7 +81,7 @@ public class BeanWrapperTest {
         assertFalse(testee.isNullable());
     }
 
-    private static class Foo {
+    public static class Foo {
 
         @Override
         public boolean equals(Object obj) {

@@ -18,7 +18,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
 
         <axon.version>4.5</axon.version>
-        <axon-cdi.version>4.5.alpha1</axon-cdi.version>
+        <axon-cdi.version>4.5-SNAPSHOT</axon-cdi.version>
         <junit.version>4.12</junit.version>
         <thorntail.version>2.7.0.Final</thorntail.version>
     </properties>
@@ -39,6 +39,11 @@
     <dependencies>
         <dependency>
             <groupId>org.axonframework</groupId>
+            <artifactId>axon-modelling</artifactId>
+            <version>${axon.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.axonframework.extensions.cdi</groupId>
             <artifactId>axon-cdi</artifactId>
             <version>${axon-cdi.version}</version>
         </dependency>

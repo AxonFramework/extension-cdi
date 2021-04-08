@@ -34,6 +34,7 @@ public class CdiUtilities {
                 beanManager.createCreationalContext(bean));
     }
 
+    @SuppressWarnings("unchecked")
     public static <T> T getReference(final BeanManager beanManager, final Class<T> clazz) {
         final Set<Bean<?>> beans = beanManager.getBeans(clazz);
         final Bean<?> bean = beanManager.resolve(beans);

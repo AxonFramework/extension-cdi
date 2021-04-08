@@ -102,7 +102,7 @@ public class CdiUtilitiesTest {
 */
 
     @ApplicationScoped
-    private static class Foo implements Serializable {
+    public static class Foo implements Serializable {
     }
 
     @Retention(RetentionPolicy.RUNTIME)
