@@ -19,7 +19,7 @@
 
     <groupId>org.axonframework.extensions.cdi</groupId>
     <artifactId>axon-cdi-parent</artifactId>
-    <version>4.5-SNAPSHOT</version>
+    <version>4.5-alpha1</version>
 
     <modules>
         <module>cdi</module>
@@ -509,7 +509,7 @@
         <connection>scm:git:git://github.com/AxonFramework/extension-cdi.git</connection>
         <developerConnection>scm:git:git@github.com:AxonFramework/extension-cdi.git</developerConnection>
         <url>https://github.com/AxonFramework/extension-cdi</url>
-        <tag>HEAD</tag>
+        <tag>axon-cdi-parent-4.5-alpha1</tag>
     </scm>
 
     <developers>
