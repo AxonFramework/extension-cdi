@@ -15,13 +15,11 @@
   ~ limitations under the License.
   -->
 
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <groupId>org.axonframework.extensions.cdi</groupId>
     <artifactId>axon-cdi-parent</artifactId>
-    <version>4.5-SNAPSHOT</version>
+    <version>4.5-alpha1</version>
 
     <modules>
         <module>cdi</module>
@@ -417,7 +415,7 @@
         <connection>scm:git:git://github.com/AxonFramework/extension-mongo.git</connection>
         <developerConnection>scm:git:git@github.com:AxonFramework/extension-mongo.git</developerConnection>
         <url>https://github.com/AxonFramework/extension-cdi</url>
-        <tag>HEAD</tag>
+        <tag>axon-cdi-4.5-alpha1</tag>
     </scm>
 
     <developers>
