@@ -50,8 +50,7 @@ public class JtaTransaction implements Transaction {
                 // and still be associated with current thread.
                 // See WFLY-4327
                 int status = userTransaction.getStatus();
-                if(status== Status.STATUS_ROLLEDBACK || status== Status.STATUS_MARKED_ROLLBACK)
-                {
+                if(status == Status.STATUS_ROLLEDBACK || status == Status.STATUS_MARKED_ROLLBACK) {
                     logger.error("Cleanup of transaction that has been rolled back previously.");
                     userTransaction.rollback();
                     status = userTransaction.getStatus();
@@ -71,7 +70,7 @@ public class JtaTransaction implements Transaction {
             if (registry != null) {
                 logger.debug("Most likely in a CMT compatible context, using TransactionSynchronizationRegistry.");
             } else {
-                logger.warn("No JTA APIs available in this context. No transation managment can be performed.");
+                logger.warn("No JTA APIs available in this context. No transaction management can be performed.");
             }
         }
     }
