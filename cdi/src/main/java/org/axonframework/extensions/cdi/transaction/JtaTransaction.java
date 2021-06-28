@@ -61,8 +61,7 @@ public class JtaTransaction implements Transaction {
                     owned = false;
                 }
             } catch (SystemException ex) {
-                logger.warn("Had trouble trying to get BMT transaction status.", ex);
-                owned = false;
+                throw new JtaTransactionException("Had trouble trying to get BMT transaction status.", ex);
             }
         } else {
             registry = getTransactionSynchronizationRegistry();
@@ -87,7 +86,7 @@ public class JtaTransaction implements Transaction {
                     logger.debug("Did not try to begin non-owned BMT transaction.");
                 }
             } catch (SystemException | NotSupportedException ex) {
-                logger.warn("Had trouble trying to start BMT transaction.", ex);
+                throw new JtaTransactionException("Had trouble trying to start BMT transaction.", ex);
             }
         } else {
             if (registry != null) {
@@ -118,7 +117,7 @@ public class JtaTransaction implements Transaction {
             } catch (SystemException | RollbackException
                     | HeuristicMixedException | HeuristicRollbackException
                     | SecurityException | IllegalStateException ex) {
-                logger.warn("Had trouble trying to commit BMT transaction.", ex);
+                throw new JtaTransactionException("Had trouble trying to commit BMT transaction.", ex);
             }
         } else {
             if (registry != null) {
@@ -148,7 +147,7 @@ public class JtaTransaction implements Transaction {
                             statusToString(userTransaction.getStatus()));
                 }
             } catch (SystemException | SecurityException | IllegalStateException ex) {
-                logger.warn("Had trouble trying to roll back BMT transaction.", ex);
+                throw new JtaTransactionException("Had trouble trying to roll back BMT transaction.", ex);
             }
         } else {
             if (registry != null) {
