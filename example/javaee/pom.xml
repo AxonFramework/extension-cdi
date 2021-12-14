@@ -15,7 +15,8 @@
         <javaee-api.version>7.0</javaee-api.version>
         <axon.version>3.3.5</axon.version>
         <axon-cdi.version>3.3-alpha2-SNAPSHOT</axon-cdi.version>
-        <junit.version>4.12</junit.version>
+        <junit.version>4.13.2</junit.version>
+        <jackson.version>2.13.0</jackson.version>
     </properties>
 
     <dependencies>
@@ -33,7 +34,7 @@
         <dependency>
             <groupId>com.fasterxml.jackson.datatype</groupId>
             <artifactId>jackson-datatype-jsr310</artifactId>
-            <version>2.9.8</version>
+            <version>${jackson.version}</version>
         </dependency>
 
         <!-- Testing -->
