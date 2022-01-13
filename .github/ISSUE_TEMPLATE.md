@@ -9,7 +9,7 @@ If you are having difficulty using the CDI Extension, please take the following 
 - Drop a questions on AxonIQ's forum: https://discuss.axoniq.io/
 - Or place a new question on StackOverflow, using the `axon` tag.
 
-## Reporting an bug, feature or enhancement
+## Reporting a bug, feature or enhancement
 
 Prior to filing an issue, please verify that it's not already reported by someone else.
 After that's done, your issue will typically fall under one of the following options:
