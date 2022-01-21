@@ -52,7 +52,7 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <axon.version>4.4.5</axon.version>
+        <axon.version>4.5.8</axon.version>
 
         <cdi-api.version>2.0</cdi-api.version>
         <transaction.version>1.3</transaction.version>
