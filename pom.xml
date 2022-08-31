@@ -23,6 +23,7 @@
 
     <modules>
         <module>cdi</module>
+        <module>cdi4</module>
     </modules>
 
     <packaging>pom</packaging>
