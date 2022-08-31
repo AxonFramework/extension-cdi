@@ -21,13 +21,14 @@
         <artifactId>axon-cdi-parent</artifactId>
         <groupId>org.axonframework.extensions.cdi</groupId>
         <version>4.6-SNAPSHOT</version>
+        <relativePath>../cdi-parent</relativePath>
     </parent>
 
     <artifactId>axon-cdi</artifactId>
 
-    <name>Axon Framework CDI Extension</name>
+    <name>Axon Framework CDI Extension (CDI v2)</name>
     <description>
-        This module contains components that integrate with CDI.
+        This module contains components that integrate with CDI version 2.
     </description>
 
     <packaging>jar</packaging>
