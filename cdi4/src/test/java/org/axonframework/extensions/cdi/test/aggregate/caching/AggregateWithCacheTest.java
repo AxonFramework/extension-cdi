@@ -16,14 +16,14 @@ import static org.axonframework.extensions.cdi.test.TestUtils.result;
 import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(ArquillianExtension.class)
-public class AggregateTest {
+public class AggregateWithCacheTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AggregateTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AggregateWithCacheTest.class);
 
     @Deployment
     public static JavaArchive createDeployment () {
         JavaArchive archive = ArchiveTemplates.javaArchive();
-        archive.addPackage(AggregateTest.class.getPackage());
+        archive.addPackage(AggregateWithCacheTest.class.getPackage());
         LOGGER.debug(archive.toString(Formatters.VERBOSE));
         return archive;
     }
