@@ -54,7 +54,7 @@ public class CDIBeanParameterResolverFactory implements ParameterResolverFactory
             return new CDIBeanParameterResolver(instance);
         }
 
-        throw CDIConfigurationException.ambiguousInstance(parameterType, instance);
+        throw CDIConfigurationException.ambiguousInstance(parameterType, instance, executable.toGenericString());
 
     }
 

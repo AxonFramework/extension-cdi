@@ -20,15 +20,44 @@ public class CDIConfigurationException extends RuntimeException {
     }
 
     public static CDIConfigurationException ambiguousInstance (Class type, Instance<?> instance) {
-        String delimiter = "\n\t -->";
-        return new CDIConfigurationException(
-                String.format("Ambiguous configuration for \n\t `%s` \n Multiple matching beans found: %s %s",
-                        type.getCanonicalName(),
-                        delimiter,
-                        instance.handlesStream()
-                                .map(handle -> handle.getBean().toString())
-                                .collect(Collectors.joining(delimiter))
-                )
-        );
+        return ambiguousInstance(type, instance, null);
+    }
+
+    public static CDIConfigurationException ambiguousInstance (Class type, Instance<?> instance, String injectionPoint) {
+
+        String message;
+        Object[] params;
+        String delimiter = "\n\t --> ";
+
+        if (injectionPoint == null) {
+            message = "\nAmbiguous configuration for type:" +
+                    "\n\t `%s` " +
+                    "\nMultiple matching beans found: %s%s";
+            params = new Object[] {
+                    type.getCanonicalName(),
+                    delimiter,
+                    instance.handlesStream()
+                            .map(handle -> handle.getBean().toString())
+                            .collect(Collectors.joining(delimiter))
+
+            };
+        } else {
+            message = "\nAmbiguous configuration for type:" +
+                    "\n\t `%s` " +
+                    "\nInjection point: " +
+                    "\n\t `%s` " +
+                    "\nMultiple matching beans found: %s%s";
+            params = new Object[] {
+                    type.getCanonicalName(),
+                    injectionPoint,
+                    delimiter,
+                    instance.handlesStream()
+                            .map(handle -> handle.getBean().toString())
+                            .collect(Collectors.joining(delimiter))
+
+            };
+        }
+
+        return new CDIConfigurationException(String.format(message, params));
     }
 }
