@@ -1,6 +1,7 @@
 package org.axonframework.extensions.cdi;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Destroyed;
 import jakarta.enterprise.event.Observes;
 import jakarta.enterprise.inject.Any;
 import jakarta.enterprise.inject.Default;
@@ -97,11 +98,17 @@ public class AxonCdiExtension implements Extension {
                         new AnnotationLiteral<Any>() {}
                         ).get();
 
-        configuration.onStart(Integer.MAX_VALUE, () ->
-                LOGGER.debug("Axon Framework Started!")
-                );
+        configuration.onStart(Integer.MAX_VALUE, () -> LOGGER.debug("Axon Framework Started!"));
+        configuration.onShutdown(Integer.MIN_VALUE, () -> LOGGER.debug("Axon Framework Stopped!"));
         configuration.start();
     }
 
+
+    void beforeShutdown(@Observes @Destroyed(ApplicationScoped.class) final Object event) {
+        Configuration configuration = CDI.current().select(Configuration.class).get();
+        if (configuration != null) {
+            configuration.shutdown();
+        }
+    }
 
 }
