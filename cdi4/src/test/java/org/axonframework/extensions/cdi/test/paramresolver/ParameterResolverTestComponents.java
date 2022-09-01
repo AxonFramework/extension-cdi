@@ -1,12 +1,6 @@
 package org.axonframework.extensions.cdi.test.paramresolver;
 
 import jakarta.enterprise.context.ApplicationScoped;
-import jakarta.enterprise.context.Dependent;
-import jakarta.enterprise.inject.Any;
-import jakarta.enterprise.inject.Default;
-import jakarta.enterprise.inject.Produces;
-import jakarta.inject.Named;
-import jakarta.validation.constraints.Negative;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.conflictresolution.ConflictResolver;
 import org.axonframework.messaging.Message;

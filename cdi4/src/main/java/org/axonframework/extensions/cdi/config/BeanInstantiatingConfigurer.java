@@ -8,8 +8,6 @@ import org.axonframework.extensions.cdi.annotations.AxonDefaultConfig;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.stream.Collectors;
-
 public interface BeanInstantiatingConfigurer {
 
     static Logger LOGGER = LoggerFactory.getLogger(BeanInstantiatingConfigurer.class);
