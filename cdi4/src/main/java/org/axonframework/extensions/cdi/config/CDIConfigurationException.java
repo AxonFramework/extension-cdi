@@ -1,11 +1,15 @@
 package org.axonframework.extensions.cdi.config;
 
 import jakarta.enterprise.inject.Instance;
-import jakarta.enterprise.inject.spi.Bean;
+import jakarta.enterprise.util.AnnotationLiteral;
 
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class CDIConfigurationException extends RuntimeException {
+
+
+    private static final String listDelimiter = "\n\t --> ";
 
     public CDIConfigurationException(String message) {
         super(message);
@@ -19,15 +23,36 @@ public class CDIConfigurationException extends RuntimeException {
         super(cause);
     }
 
-    public static CDIConfigurationException ambiguousInstance (Class type, Instance<?> instance) {
+
+    public static CDIConfigurationException notFound (Class<?> type) {
+        return new CDIConfigurationException(String.format(
+                "Couldn't find bean of type %s ",
+                type
+        ));
+    }
+
+    public static CDIConfigurationException notFound (Class<?> type, Class<?> injectionPointClass, AnnotationLiteral<?>... annotationLiterals) {
+        return new CDIConfigurationException(String.format(
+                        "Couldn't find bean of type %s with qualifiers: " +
+                        "\n\t%s" +
+                        "\nInjection point:" +
+                        "\n\t%s",
+                type,
+                Arrays.stream(annotationLiterals).sorted()
+                        .map(AnnotationLiteral::toString)
+                        .collect(Collectors.joining(listDelimiter)),
+                injectionPointClass
+        ));
+    }
+
+    public static CDIConfigurationException ambiguousInstance (Class<?> type, Instance<?> instance) {
         return ambiguousInstance(type, instance, null);
     }
 
-    public static CDIConfigurationException ambiguousInstance (Class type, Instance<?> instance, String injectionPoint) {
+    public static CDIConfigurationException ambiguousInstance (Class<?> type, Instance<?> instance, String injectionPoint) {
 
         String message;
         Object[] params;
-        String delimiter = "\n\t --> ";
 
         if (injectionPoint == null) {
             message = "\nAmbiguous configuration for type:" +
@@ -35,10 +60,10 @@ public class CDIConfigurationException extends RuntimeException {
                     "\nMultiple matching beans found: %s%s";
             params = new Object[] {
                     type.getCanonicalName(),
-                    delimiter,
+                    listDelimiter,
                     instance.handlesStream()
                             .map(handle -> handle.getBean().toString())
-                            .collect(Collectors.joining(delimiter))
+                            .collect(Collectors.joining(listDelimiter))
 
             };
         } else {
@@ -50,10 +75,10 @@ public class CDIConfigurationException extends RuntimeException {
             params = new Object[] {
                     type.getCanonicalName(),
                     injectionPoint,
-                    delimiter,
+                    listDelimiter,
                     instance.handlesStream()
                             .map(handle -> handle.getBean().toString())
-                            .collect(Collectors.joining(delimiter))
+                            .collect(Collectors.joining(listDelimiter))
 
             };
         }

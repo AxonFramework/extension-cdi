@@ -53,7 +53,7 @@ public class AggregatesRegisterer<T> implements AnnotatedTypeRegisterer<T> {
                     aggregateConfigurer.configureRepository(config -> repository);
                     LOGGER.debug("Found `{}` named `{}`", repository, repositoryName);
                 } else {
-                    LOGGER.warn("Could not find repository named `{}` configured at `{}`", repositoryName, aggregateClass);
+                    throw CDIConfigurationException.notFound(Repository.class, aggregateClass, NamedLiteral.of(configurerName));
                 }
 
             }
