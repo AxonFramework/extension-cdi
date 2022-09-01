@@ -4,14 +4,10 @@ import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.literal.NamedLiteral;
 import jakarta.enterprise.inject.spi.AnnotatedType;
 import jakarta.enterprise.inject.spi.BeanManager;
-import jakarta.enterprise.util.AnnotationLiteral;
-import jakarta.inject.Named;
 import org.axonframework.common.caching.Cache;
 import org.axonframework.config.AggregateConfigurer;
 import org.axonframework.config.Configurer;
 import org.axonframework.extensions.cdi.annotations.Aggregate;
-import org.axonframework.extensions.cdi.annotations.AxonConfig;
-import org.axonframework.extensions.cdi.annotations.AxonDefaultConfig;
 import org.axonframework.modelling.command.Repository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,7 +32,25 @@ public class AggregatesRegisterer<T> implements AnnotatedTypeRegisterer<T> {
             Class aggregateClass = aac.getJavaClass();
             Aggregate annotation = aac.getAnnotation(Aggregate.class);
 
-            AggregateConfigurer aggregateConfigurer = AggregateConfigurer.defaultConfiguration(aggregateClass);
+            AggregateConfigurer aggregateConfigurer;
+            String configurerName = annotation.configurer();
+            if (configurerName.isBlank()) {
+                aggregateConfigurer = AggregateConfigurer.defaultConfiguration(aggregateClass);
+            } else {
+                Instance<AggregateConfigurer> configurerInstance = getConfiguredInstance(
+                        beanManager,
+                        AggregateConfigurer.class,
+                        NamedLiteral.of(configurerName)
+                );
+
+                if (configurerInstance.isResolvable()) {
+                    aggregateConfigurer = configurerInstance.get();
+                } else {
+                    throw CDIConfigurationException.notFound(AggregateConfigurer.class, aggregateClass, NamedLiteral.of(configurerName));
+                }
+            }
+
+
 
             String repositoryName = annotation.repository();
             if (repositoryName.isBlank()) {
@@ -73,6 +87,9 @@ public class AggregatesRegisterer<T> implements AnnotatedTypeRegisterer<T> {
             annotation.snapshotFilter();
             // TODO: wire snapshotFilter
 
+//            aggregateConfigurer.configureAggregateFactory(configuration -> {
+//                return new GenericAggregateFactory (aggregateClass);
+//            });
 
             configurer.configureAggregate(aggregateConfigurer);
         });

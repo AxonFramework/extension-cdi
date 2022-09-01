@@ -16,9 +16,21 @@ public @interface Aggregate {
 
     // TODO: Update javadocs !!!
 
+
     /**
-     * Selects the name of the AggregateRepository bean. If left empty a new repository is created. In that case the
+     * Sets the name of the bean providing the entire aggregate configuration.
+     *
+     * If none is provided, the default configuration will be used.
+     */
+    String configurer() default "";
+
+    /**
+     * Sets the name of the bean providing the AggregateRepository bean.
+     *
+     * If left empty a new repository is created. In that case the
      * name of the repository will be based on the simple name of the aggregate's class.
+     *
+     * If provided, it overwrites the value provided by the configurer
      */
     String repository() default "";
 
