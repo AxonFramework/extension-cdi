@@ -81,6 +81,17 @@ public class AxonCdiExtension implements Extension {
                     aggregatesRegisterer.registerAnnotatedTypes(beanManager, configurer);
                     messageHandlingComponentsRegisterer.registerAnnotatedTypes(beanManager, configurer);
 
+
+                    /*  --------------------------------------------------
+                        Temporary dirty hacks
+                        TODO: move those to respective proper places
+
+                     */
+
+                    configurer.configureSerializer(c -> XStreamSerializer.defaultSerializer());
+
+                    /*  -------------------------------------------------- */
+
                     Configuration configuration = configurer.buildConfiguration();
                     return configuration;
                 });

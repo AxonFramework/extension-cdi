@@ -10,6 +10,7 @@
 
     <logger name="org.axonframework.extensions.cdi" level="DEBUG"/>
     <logger name="org.axonframework.config" level="DEBUG"/>
+    <logger name="org.axonframework.axonserver.connector" level="DEBUG"/>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
