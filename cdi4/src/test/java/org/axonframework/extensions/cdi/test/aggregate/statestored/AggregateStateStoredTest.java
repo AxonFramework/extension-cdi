@@ -17,9 +17,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @ExtendWith(ArquillianExtension.class)
-public class AggregateTest {
+public class AggregateStateStoredTest {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(AggregateTest.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(AggregateStateStoredTest.class);
 
     @Inject
     CommandGateway commandGateway;
@@ -28,7 +28,7 @@ public class AggregateTest {
     public static JavaArchive createDeployment() {
         JavaArchive archive = ArchiveTemplates.javaArchive();
         archive.addAsResource("persistence.xml", "META-INF/persistence.xml");
-        archive.addPackage(AggregateTest.class.getPackage());
+        archive.addPackage(AggregateStateStoredTest.class.getPackage());
         LOGGER.debug("Making archive with following content:\n" + archive.toString(Formatters.VERBOSE));
         return archive;
     }
