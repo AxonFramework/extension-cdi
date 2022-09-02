@@ -1,6 +1,9 @@
 package org.axonframework.extensions.cdi.test.query;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Produces;
+import org.axonframework.extensions.cdi.AxonCDIConfguration;
 import org.axonframework.queryhandling.QueryHandler;
 
 import static org.axonframework.extensions.cdi.test.TestUtils.echo;
@@ -25,6 +28,16 @@ public class QueryProcessingTestComponents {
         @QueryHandler
         public QueryResult handle(Query query) {
             return new QueryResult(echo(query.getQuery()));
+        }
+    }
+
+    @Dependent
+    static class Config {
+        @Produces
+        public AxonCDIConfguration axonCDIConfguration () {
+            return AxonCDIConfguration.builder()
+                    .disableAxonServerConnector(true)
+                    .build();
         }
     }
 }

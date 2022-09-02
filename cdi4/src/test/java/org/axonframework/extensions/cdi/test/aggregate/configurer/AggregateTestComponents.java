@@ -11,6 +11,7 @@ import org.axonframework.eventsourcing.GenericAggregateFactory;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;
+import org.axonframework.extensions.cdi.AxonCDIConfguration;
 import org.axonframework.extensions.cdi.annotations.Aggregate;
 import org.axonframework.extensions.cdi.annotations.AxonConfig;
 import org.axonframework.modelling.command.AggregateIdentifier;
@@ -40,6 +41,13 @@ public class AggregateTestComponents {
 
     @Dependent
     public static class Config {
+        @Produces
+        public AxonCDIConfguration axonCDIConfguration () {
+            return AxonCDIConfguration.builder()
+                    .disableAxonServerConnector(true)
+                    .build();
+        }
+
         @Produces
         @AxonConfig
         @Named

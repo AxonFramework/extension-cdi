@@ -3,22 +3,28 @@ package org.axonframework.extensions.cdi;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Destroyed;
 import jakarta.enterprise.event.Observes;
+import jakarta.enterprise.inject.Alternative;
 import jakarta.enterprise.inject.Any;
 import jakarta.enterprise.inject.Default;
+import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.spi.*;
 import jakarta.enterprise.util.AnnotationLiteral;
-import org.axonframework.config.Configuration;
-import org.axonframework.config.Configurer;
-import org.axonframework.config.DefaultConfigurer;
+import org.axonframework.axonserver.connector.ServerConnectorConfigurerModule;
+import org.axonframework.axonserver.connector.TargetContextResolver;
+import org.axonframework.commandhandling.SimpleCommandBus;
+import org.axonframework.config.*;
+import org.axonframework.eventhandling.tokenstore.TokenStore;
+import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.extensions.cdi.annotations.Aggregate;
 import org.axonframework.extensions.cdi.annotations.AxonConfig;
+import org.axonframework.extensions.cdi.annotations.AxonInternal;
 import org.axonframework.extensions.cdi.config.*;
 import org.axonframework.messaging.annotation.MessageHandler;
+import org.axonframework.serialization.xml.XStreamSerializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Main CDI extension class responsible for collecting CDI beans and setting up
@@ -75,7 +81,33 @@ public class AxonCdiExtension implements Extension {
                 .name(Configuration.class.getName())
                 .beanClass(Configuration.class)
                 .createWith(context -> {
-                    Configurer configurer = DefaultConfigurer.defaultConfiguration();
+
+                    Set<Class> disabledModules = new HashSet<>();
+
+                    Configurer configurer = DefaultConfigurer.defaultConfiguration(false);
+
+                    Instance<AxonCDIConfguration> axonCDIConfgurationInstance
+                            = beanManager.createInstance().select(AxonCDIConfguration.class);
+
+                    if (axonCDIConfgurationInstance.isResolvable()) {
+                        AxonCDIConfguration axonCDIConfguration = axonCDIConfgurationInstance.get();
+                        if (axonCDIConfguration.disableAxonServerConnector()) {
+                            disabledModules.add(ServerConnectorConfigurerModule.class);
+                        }
+                    }
+
+                    ServiceLoader<ConfigurerModule> configurerModuleLoader = ServiceLoader.load(ConfigurerModule.class, configurer.getClass().getClassLoader());
+                    List<OptionalConfigurerModule> configurerModules = new LinkedList<>();
+                    configurerModuleLoader.forEach(configurerModule -> {
+                        configurerModules.add(new OptionalConfigurerModule(configurerModule, true));
+                    });
+                    configurerModules.stream()
+                            .map(optionalConfigurerModule -> optionalConfigurerModule.getModule())
+                            .filter(module -> !disabledModules.contains(module.getClass()))
+                            .sorted(Comparator.comparingInt(ConfigurerModule::order))
+                            .forEach((cm) -> {
+                                cm.configureModule(configurer);
+                            });
 
                     componentConfigurers.forEach(c -> c.configure(beanManager, configurer));
                     aggregatesRegisterer.registerAnnotatedTypes(beanManager, configurer);
@@ -109,7 +141,10 @@ public class AxonCdiExtension implements Extension {
                         new AnnotationLiteral<Any>() {}
                         ).get();
 
-        configuration.onStart(Integer.MAX_VALUE, () -> LOGGER.debug("Axon Framework Started!"));
+        configuration.onStart(Integer.MIN_VALUE, () -> {
+            LOGGER.debug("Axon Framework Started!");
+//            printConfiguration();
+        });
         configuration.onShutdown(Integer.MIN_VALUE, () -> LOGGER.debug("Axon Framework Stopped!"));
         configuration.start();
     }
@@ -122,4 +157,52 @@ public class AxonCdiExtension implements Extension {
         }
     }
 
-}
+    private static void printConfiguration() {
+
+        Configuration configuration = CDI.current().select(Configuration.class).get();
+
+        Map<String, String> components = new HashMap<>();
+        components.put("Command Bus", nameOf(configuration.commandBus()));
+        components.put("Command Gateway", nameOf(configuration.commandGateway()));
+        components.put("Event Bus", nameOf(configuration.eventBus()));
+        components.put("Event Gateway", nameOf(configuration.eventGateway()));
+        components.put("Event Store", nameOf(configuration.eventStore()));
+        components.put("Query Bus", nameOf(configuration.queryBus()));
+        components.put("Query Gateway", nameOf(configuration.queryGateway()));
+        components.put("Event Scheduler", nameOf(configuration.eventScheduler()));
+        components.put("Event Serializer", nameOf(configuration.eventSerializer()));
+        components.put("Message Serializer", nameOf(configuration.messageSerializer()));
+        components.put("Serializer", nameOf(configuration.serializer()));
+        components.put("Token Store", nameOf(configuration.getComponent(TokenStore.class)));
+        components.put("Event Storage Engine", nameOf(configuration.getComponent(EventStorageEngine.class)));
+        components.put("Target Context Resolver", nameOf(configuration.getComponent(TargetContextResolver.class)));
+
+        String formatComponent = "| %-25s | %-105s |%n";
+        String formatModule = "| %-133s |%n";
+
+        System.out.println("+---------------------------------------------------------------------------------------------------------------------------------------+");
+        System.out.println("| ### Axon Framework configuration ###                                                                                                  |");
+        System.out.println("+---------------------------+-----------------------------------------------------------------------------------------------------------+");
+        System.out.println("| \uD83D\uDD2E Component              | \uD83E\uDDD9️ Implementation                                                                                        |");
+        System.out.println("+---------------------------+-----------------------------------------------------------------------------------------------------------+");
+
+        components.entrySet().stream()
+                .sorted(Map.Entry.comparingByKey())
+                .forEach(entry -> System.out.format(formatComponent, entry.getKey(), entry.getValue()));
+
+        System.out.println("+---------------------------+-----------------------------------------------------------------------------------------------------------+");
+        System.out.println("| 🧩 enabled modules                                                                                                                    |");
+        System.out.println("+---------------------------------------------------------------------------------------------------------------------------------------+");
+
+        configuration.getModules().forEach(module -> {
+            System.out.format(formatModule, " " + module);
+        });
+
+        System.out.println("+---------------------------------------------------------------------------------------------------------------------------------------+");
+
+    }
+
+    private static String nameOf (Object o) {
+        return Objects.toString(o);
+    }
+ }

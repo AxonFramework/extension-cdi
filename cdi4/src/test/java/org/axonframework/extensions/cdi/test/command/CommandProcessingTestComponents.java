@@ -1,9 +1,12 @@
 package org.axonframework.extensions.cdi.test.command;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventhandling.gateway.EventGateway;
+import org.axonframework.extensions.cdi.AxonCDIConfguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -34,6 +37,16 @@ public class CommandProcessingTestComponents {
             LOGGER.info("Handling command " + cmd);
             return echo(cmd.getName());
         }
-
     }
+
+    @Dependent
+    static class Config {
+        @Produces
+        public AxonCDIConfguration axonCDIConfguration () {
+            return AxonCDIConfguration.builder()
+                    .disableAxonServerConnector(true)
+                    .build();
+        }
+    }
+
 }

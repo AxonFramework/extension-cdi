@@ -9,6 +9,7 @@ import org.axonframework.common.caching.WeakReferenceCache;
 import org.axonframework.eventsourcing.EventSourcingHandler;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
 import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;
+import org.axonframework.extensions.cdi.AxonCDIConfguration;
 import org.axonframework.extensions.cdi.annotations.Aggregate;
 import org.axonframework.extensions.cdi.annotations.AxonConfig;
 import org.axonframework.extensions.cdi.annotations.AxonDefaultConfig;
@@ -56,6 +57,13 @@ public class AggregateTestComponents {
 
     @Dependent
     public static class Config {
+
+        @Produces
+        public AxonCDIConfguration axonCDIConfguration () {
+            return AxonCDIConfguration.builder()
+                    .disableAxonServerConnector(true)
+                    .build();
+        }
 
         @Produces
         @AxonConfig

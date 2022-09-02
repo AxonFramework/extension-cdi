@@ -10,6 +10,7 @@ import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.common.jpa.SimpleEntityManagerProvider;
 import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventhandling.EventHandler;
+import org.axonframework.extensions.cdi.AxonCDIConfguration;
 import org.axonframework.extensions.cdi.annotations.Aggregate;
 import org.axonframework.extensions.cdi.annotations.AxonConfig;
 import org.axonframework.extensions.cdi.test.TestUtils;
@@ -29,6 +30,13 @@ public class AggregateTestComponents {
 
     @ApplicationScoped
     public static class Config {
+
+        @Produces
+        public AxonCDIConfguration axonCDIConfguration () {
+            return AxonCDIConfguration.builder()
+                    .disableAxonServerConnector(true)
+                    .build();
+        }
 
         @Inject
         EntityManagerFactory entityManagerFactory;

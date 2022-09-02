@@ -1,8 +1,11 @@
 package org.axonframework.extensions.cdi.test.paramresolver;
 
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.enterprise.context.Dependent;
+import jakarta.enterprise.inject.Produces;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.conflictresolution.ConflictResolver;
+import org.axonframework.extensions.cdi.AxonCDIConfguration;
 import org.axonframework.messaging.Message;
 import org.axonframework.messaging.MetaData;
 import org.axonframework.messaging.annotation.MessageIdentifier;
@@ -45,6 +48,15 @@ public class ParameterResolverTestComponents {
         public String handleWithConflictResolver(CommandConflictResolver cmd, ConflictResolver conflictResolver) {
             return "handleWithConflictResolver:" + conflictResolver.getClass();
         }
+    }
 
+    @Dependent
+    static class Config {
+        @Produces
+        public AxonCDIConfguration axonCDIConfguration () {
+            return AxonCDIConfguration.builder()
+                    .disableAxonServerConnector(true)
+                    .build();
+        }
     }
 }

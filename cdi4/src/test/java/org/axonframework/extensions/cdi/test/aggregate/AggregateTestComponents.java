@@ -35,6 +35,13 @@ public class AggregateTestComponents {
     public static class Config {
 
         @Produces
+        public AxonCDIConfguration axonCDIConfguration () {
+            return AxonCDIConfguration.builder()
+                    .disableAxonServerConnector(true)
+                    .build();
+        }
+
+        @Produces
         @ApplicationScoped
         public EventStorageEngine eventStorageEngine () {
             return new InMemoryEventStorageEngine();
