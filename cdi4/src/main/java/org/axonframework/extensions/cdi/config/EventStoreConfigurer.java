@@ -5,6 +5,7 @@ import jakarta.enterprise.inject.spi.BeanManager;
 import org.axonframework.config.Configurer;
 import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
+import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,6 +22,11 @@ public class EventStoreConfigurer implements ComponentConfigurer {
              - MongoDB
          */
 
+        Instance<EventStore> eventStoreInstance = getConfiguredInstance(
+                beanManager,
+                EventStore.class);
+
+
         Instance<EmbeddedEventStore> embeddedEventStoreInstance = getConfiguredInstance(
                 beanManager,
                 EmbeddedEventStore.class);
@@ -29,7 +35,11 @@ public class EventStoreConfigurer implements ComponentConfigurer {
                 beanManager,
                 EventStorageEngine.class);
 
-        if (embeddedEventStoreInstance.isResolvable()) {
+        if (eventStoreInstance.isResolvable()) {
+            EventStore eventStore = eventStoreInstance.get();
+            LOGGER.debug("Found EventStore instance in " + eventStore.getClass().getName());
+            configurer.configureEventStore(configuration -> eventStore);
+        } else if (embeddedEventStoreInstance.isResolvable()) {
             EmbeddedEventStore embeddedEventStore = embeddedEventStoreInstance.get();
             LOGGER.debug("Found embedded EventStore instance in " + embeddedEventStore.getClass().getName());
             configurer.configureEventStore(configuration -> embeddedEventStore);

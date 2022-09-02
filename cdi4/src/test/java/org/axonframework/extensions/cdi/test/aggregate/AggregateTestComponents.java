@@ -1,11 +1,18 @@
 package org.axonframework.extensions.cdi.test.aggregate;
 
+import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.inject.Produces;
+import jakarta.enterprise.inject.Vetoed;
+import jakarta.inject.Named;
+import jakarta.inject.Singleton;
 import org.axonframework.commandhandling.CommandHandler;
 import org.axonframework.eventsourcing.EventSourcingHandler;
+import org.axonframework.eventsourcing.eventstore.EmbeddedEventStore;
 import org.axonframework.eventsourcing.eventstore.EventStorageEngine;
+import org.axonframework.eventsourcing.eventstore.EventStore;
 import org.axonframework.eventsourcing.eventstore.inmemory.InMemoryEventStorageEngine;
+import org.axonframework.extensions.cdi.AxonCDIConfguration;
 import org.axonframework.extensions.cdi.annotations.Aggregate;
 import org.axonframework.extensions.cdi.annotations.AxonConfig;
 import org.axonframework.extensions.cdi.test.TestUtils;
@@ -26,10 +33,19 @@ public class AggregateTestComponents {
 
     @Dependent
     public static class Config {
+
+        @Produces
+        @ApplicationScoped
+        public EventStorageEngine eventStorageEngine () {
+            return new InMemoryEventStorageEngine();
+        }
+
         @Produces
         @AxonConfig
-        public EventStorageEngine configure () {
-            return new InMemoryEventStorageEngine();
+        public EventStore eventStore (EventStorageEngine eventStorageEngine) {
+            return EmbeddedEventStore.builder()
+                    .storageEngine(eventStorageEngine)
+                    .build();
         }
     }
 
