@@ -1,5 +1,6 @@
 package org.axonframework.extensions.cdi;
 
+import org.axonframework.axonserver.connector.ServerConnectorConfigurerModule;
 import org.axonframework.config.ConfigurerModule;
 
 public class OptionalConfigurerModule {
@@ -8,9 +9,13 @@ public class OptionalConfigurerModule {
 
     boolean enabled;
 
-    public OptionalConfigurerModule(ConfigurerModule module, boolean enabled) {
+    public OptionalConfigurerModule(ConfigurerModule module, AxonCDIConfig axonCDIConfig) {
         this.module = module;
-        this.enabled = enabled;
+        this.enabled = true;
+
+        if (ServerConnectorConfigurerModule.class.equals(module.getClass())) {
+            this.enabled = axonCDIConfig.isAxonServerConnectorEnabled();
+        }
     }
 
     public ConfigurerModule getModule() {

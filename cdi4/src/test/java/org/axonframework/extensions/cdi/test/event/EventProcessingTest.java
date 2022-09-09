@@ -19,6 +19,7 @@ public class EventProcessingTest {
     @Deployment
     public static JavaArchive createDeployment () {
         JavaArchive archive = ArchiveTemplates.javaArchive();
+        archive.addAsResource("configs/disable-axonserver.properties","META-INF/microprofile-config.properties");
         archive.addPackage(EventProcessingTest.class.getPackage());
         return archive;
     }

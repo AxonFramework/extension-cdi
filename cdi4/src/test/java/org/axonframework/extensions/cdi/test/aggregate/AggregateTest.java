@@ -27,6 +27,7 @@ public class AggregateTest {
     public static JavaArchive createDeployment () {
         JavaArchive archive = ArchiveTemplates.javaArchive();
         archive.addPackage(AggregateTest.class.getPackage());
+        archive.addAsResource("configs/disable-axonserver.properties","META-INF/microprofile-config.properties");
         LOGGER.debug(archive.toString(Formatters.VERBOSE));
         return archive;
     }

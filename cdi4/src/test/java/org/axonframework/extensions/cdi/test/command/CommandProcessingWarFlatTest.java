@@ -14,6 +14,7 @@ public class CommandProcessingWarFlatTest extends CommandProcessingTest {
     @Deployment
     public static WebArchive createWebDeployment () {
         WebArchive archive = ArchiveTemplates.webArchiveFlat();
+        archive.addAsResource("configs/disable-axonserver.properties","META-INF/microprofile-config.properties");
         archive.addClass(CommandProcessingTestComponents.class);
         LOGGER.debug("Making archive with following content:\n" + archive.toString(Formatters.VERBOSE));
         return archive;

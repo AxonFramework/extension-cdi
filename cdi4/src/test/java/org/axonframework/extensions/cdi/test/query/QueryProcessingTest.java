@@ -24,6 +24,7 @@ public class QueryProcessingTest {
     public static JavaArchive createDeployment() {
         JavaArchive archive = ArchiveTemplates.javaArchive();
         archive.addPackage(QueryProcessingTest.class.getPackage());
+        archive.addAsResource("configs/disable-axonserver.properties","META-INF/microprofile-config.properties");
         return archive;
     }
 

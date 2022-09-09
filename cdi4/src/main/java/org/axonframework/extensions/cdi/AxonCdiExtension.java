@@ -86,24 +86,16 @@ public class AxonCdiExtension implements Extension {
 
                     Configurer configurer = DefaultConfigurer.defaultConfiguration(false);
 
-                    Instance<AxonCDIConfguration> axonCDIConfgurationInstance
-                            = beanManager.createInstance().select(AxonCDIConfguration.class);
-
-                    if (axonCDIConfgurationInstance.isResolvable()) {
-                        AxonCDIConfguration axonCDIConfguration = axonCDIConfgurationInstance.get();
-                        if (axonCDIConfguration.disableAxonServerConnector()) {
-                            disabledModules.add(ServerConnectorConfigurerModule.class);
-                        }
-                    }
+                    AxonCDIConfig axonCDIConfig = beanManager.createInstance().select(AxonCDIConfig.class).get();
 
                     ServiceLoader<ConfigurerModule> configurerModuleLoader = ServiceLoader.load(ConfigurerModule.class, configurer.getClass().getClassLoader());
                     List<OptionalConfigurerModule> configurerModules = new LinkedList<>();
                     configurerModuleLoader.forEach(configurerModule -> {
-                        configurerModules.add(new OptionalConfigurerModule(configurerModule, true));
+                        configurerModules.add(new OptionalConfigurerModule(configurerModule, axonCDIConfig));
                     });
                     configurerModules.stream()
-                            .map(optionalConfigurerModule -> optionalConfigurerModule.getModule())
-                            .filter(module -> !disabledModules.contains(module.getClass()))
+                            .filter(OptionalConfigurerModule::isEnabled)
+                            .map(OptionalConfigurerModule::getModule)
                             .sorted(Comparator.comparingInt(ConfigurerModule::order))
                             .forEach((cm) -> {
                                 cm.configureModule(configurer);

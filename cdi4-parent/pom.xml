@@ -42,7 +42,12 @@
         <hibernate-core.version>6.1.2.Final</hibernate-core.version>
         <hibernate-validator.version>8.0.0.CR3</hibernate-validator.version>
         <hsqldb.version>2.7.0</hsqldb.version>
-        <narayana-jta-.version>5.13.1.Alpha1</narayana-jta-.version>
+        <narayana-jta.version>5.13.1.Alpha1</narayana-jta.version>
+
+        <!--
+            Config
+        -->
+        <smallrye-config.version>3.0.0</smallrye-config.version>
 
         <!--
             Tests
@@ -179,7 +184,16 @@
             <dependency>
                 <groupId>org.jboss.narayana.jta</groupId>
                 <artifactId>narayana-jta-jakarta</artifactId>
-                <version>${narayana-jta-.version}</version>
+                <version>${narayana-jta.version}</version>
+            </dependency>
+
+            <!--
+                Config
+            -->
+            <dependency>
+                <groupId>io.smallrye.config</groupId>
+                <artifactId>smallrye-config</artifactId>
+                <version>${smallrye-config.version}</version>
             </dependency>
 
             <!--

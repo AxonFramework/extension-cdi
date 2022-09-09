@@ -9,6 +9,7 @@ public class CommandProcessingJarTest extends CommandProcessingTest {
     @Deployment
     public static JavaArchive createJavaDeployment () {
         JavaArchive archive = ArchiveTemplates.javaArchive();
+        archive.addAsResource("configs/disable-axonserver.properties","META-INF/microprofile-config.properties");
         archive.addClass(CommandProcessingTestComponents.class);
         return archive;
     }

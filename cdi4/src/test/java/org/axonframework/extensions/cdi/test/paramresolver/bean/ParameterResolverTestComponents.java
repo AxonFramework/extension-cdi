@@ -5,7 +5,6 @@ import jakarta.enterprise.context.Dependent;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Named;
 import org.axonframework.commandhandling.CommandHandler;
-import org.axonframework.extensions.cdi.AxonCDIConfguration;
 
 public class ParameterResolverTestComponents {
 
@@ -16,13 +15,6 @@ public class ParameterResolverTestComponents {
 
     @Dependent
     public static class Configuration {
-
-        @Produces
-        public AxonCDIConfguration axonCDIConfguration () {
-            return AxonCDIConfguration.builder()
-                    .disableAxonServerConnector(true)
-                    .build();
-        }
 
         public static class MyBean {
             private String name;

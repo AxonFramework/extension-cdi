@@ -1,7 +1,6 @@
 package org.axonframework.extensions.cdi.test;
 
 import jakarta.enterprise.context.Dependent;
-import jakarta.enterprise.inject.Default;
 import jakarta.enterprise.inject.Instance;
 import jakarta.enterprise.inject.Produces;
 import jakarta.inject.Inject;
@@ -14,7 +13,6 @@ import org.axonframework.eventhandling.EventBus;
 import org.axonframework.eventhandling.gateway.EventGateway;
 import org.axonframework.eventhandling.scheduling.EventScheduler;
 import org.axonframework.eventsourcing.eventstore.EventStore;
-import org.axonframework.extensions.cdi.AxonCDIConfguration;
 import org.axonframework.extensions.cdi.AxonProducers;
 import org.axonframework.queryhandling.QueryBus;
 import org.axonframework.queryhandling.QueryGateway;
@@ -73,7 +71,9 @@ public class AxonBasicWiringTest {
 
     @Deployment
     public static JavaArchive createDeployment () {
-        return ArchiveTemplates.javaArchive();
+        JavaArchive javaArchive = ArchiveTemplates.javaArchive();
+        javaArchive.addAsResource("configs/disable-axonserver.properties","META-INF/microprofile-config.properties");
+        return javaArchive;
     }
 
     @TestFactory
@@ -151,17 +151,6 @@ public class AxonBasicWiringTest {
     @Target(ElementType.FIELD)
     @Retention(RetentionPolicy.RUNTIME)
     @interface Internal {}
-
-    @Dependent
-    static class Config {
-        @Produces
-        public AxonCDIConfguration axonCDIConfguration () {
-            return AxonCDIConfguration.builder()
-                    .disableAxonServerConnector(true)
-                    .build();
-        }
-    }
-
 
 
 }

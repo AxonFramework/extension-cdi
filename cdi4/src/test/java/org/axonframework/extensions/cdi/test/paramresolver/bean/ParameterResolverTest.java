@@ -26,6 +26,7 @@ public class ParameterResolverTest {
     public static JavaArchive createDeployment () {
         JavaArchive archive = ArchiveTemplates.javaArchive();
         archive.addAsResource("persistence.xml", "META-INF/persistence.xml");
+        archive.addAsResource("configs/disable-axonserver.properties","META-INF/microprofile-config.properties");
         archive.addPackage(org.axonframework.extensions.cdi.test.paramresolver.bean.ParameterResolverTest.class.getPackage());
         LOGGER.debug("Making archive with following content:\n" + archive.toString(Formatters.VERBOSE));
         return archive;
