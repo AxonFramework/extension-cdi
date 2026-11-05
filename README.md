@@ -11,7 +11,7 @@ The current minimum supported versions are:
 * CDI 1.2/Java EE 7
 * Java SE 8
  
-We have so far tested sucessfully against Payara, WildFly, JBoss EAP, TomEE and WebLogic. We will test the module with Thorntail (formerly WildFly Swarm) and WebSphere Liberty/Open Liberty. A contribution testing against WebSphere classic is welcome.
+We have so far tested successfully against Payara, WildFly, JBoss EAP, TomEE and WebLogic. We will test the module with Thorntail (formerly WildFly Swarm) and WebSphere Liberty/Open Liberty. A contribution testing against WebSphere classic is welcome.
 
 ## CDI module branches and usage:
 
