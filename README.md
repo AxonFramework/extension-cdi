@@ -105,7 +105,7 @@ Event handlers and query handlers must be CDI beans. They will be automatically 
 Please have a look at the examples in the [example](/example) folder.
 
 ### Java EE
-The [Java EE](/example/javaee) example demonstrates usage inside any Java EE 7+ compatible application server much as Payara or WildFly. The example is a generic Maven web application you should be able to build on any IDE, generate a Java EE 7 war and deploy to your favorite application server. We have so far tested sucessfully against Payara, WildFly, JBoss EAP, TomEE and WebLogic.
+The [Java EE](/example/javaee) example demonstrates usage inside any Java EE 7+ compatible application server much as Payara or WildFly. The example is a generic Maven web application you should be able to build on any IDE, generate a Java EE 7 war and deploy to your favorite application server. We have so far tested successfully against Payara, WildFly, JBoss EAP, TomEE and WebLogic.
 
 For convenience, we have added Cargo configurations in separate Maven profiles for most supported and tested application servers.
 
